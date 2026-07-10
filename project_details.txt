@@ -1,0 +1,53 @@
+Project Title:
+Sign Speak AI
+
+Project Description:
+Sign Speak AI is a real-time sign language recognition web application that converts hand gestures into text and speech.
+
+Objective:
+To help bridge communication gaps between deaf and hearing-impaired people by recognizing sign language gestures using Artificial Intelligence.
+
+Technologies Used:
+- Python
+- Flask
+- TensorFlow / Keras
+- OpenCV
+- MediaPipe
+- HTML
+- CSS
+- JavaScript
+- SQLite Database
+
+AI Model:
+A deep learning based gesture classification model is used to recognize hand gestures.
+
+Features:
+- Real-time webcam gesture recognition
+- Hand landmark detection
+- Text conversion
+- Voice output
+- Gesture history storage
+- Multiple sign classes support
+
+Gesture Classes:
+1. Hello
+2. Bye
+3. Good Morning
+4. Help
+5. I Love You
+6. No
+7. Sorry
+8. Thank You
+9. Thumbs Up
+10. Thumbs Down
+11. Welcome
+12. Yes
+
+Backend:
+Flask REST API handles image processing, prediction, and database operations.
+
+Database:
+SQLite is used to store gesture history and application data.
+
+Project Type:
+AI + Machine Learning + Full Stack Web Application

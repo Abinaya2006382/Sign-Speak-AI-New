@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Speak AI - Sign Language Recognition System</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cyberpunk Background Grid and Particles -->
+    <div class="bg-cyber-grid"></div>
+    <div class="glow-orb orb-purple"></div>
+    <div class="glow-orb orb-cyan"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-glass sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#home" id="nav-brand">
+                <i class="bi bi-cpu text-cyan me-2 logo-icon"></i>
+                <span class="brand-text">SIGN SPEAK <span class="text-cyan">AI</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto font-orbitron">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home" data-target="home-section"><i class="bi bi-house-door me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#recognition" data-target="recognition-section"><i class="bi bi-camera-video me-1"></i> Recognition</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gestures" data-target="gestures-section"><i class="bi bi-hand-index-thumb me-1"></i> Gestures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#history" data-target="history-section"><i class="bi bi-clock-history me-1"></i> History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about" data-target="about-section"><i class="bi bi-info-circle me-1"></i> About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global System Notification / Retraining Progress Banner -->
+    <div class="container mt-3 d-none" id="global-alert-container">
+        <div class="alert alert-glass d-flex align-items-center justify-content-between" role="alert">
+            <div class="d-flex align-items-center">
+                <div class="spinner-border text-cyan me-3 spinner-border-sm" role="status" id="alert-spinner"></div>
+                <i class="bi bi-check-circle-fill text-success me-3 fs-5 d-none" id="alert-success-icon"></i>
+                <span id="global-alert-message">Optimizing neural pathways... Retraining TensorFlow Classifier.</span>
+            </div>
+            <button type="button" class="btn-close btn-close-white" onclick="document.getElementById('global-alert-container').classList.add('d-none')"></button>
+        </div>
+    </div>
+
+    <!-- Main Content Container (SPA Sections) -->
+    <main class="container py-4">
+
+        <!-- ================= HOME SECTION ================= -->
+        <section id="home-section" class="spa-section active-section">
+            <div class="row align-items-center justify-content-center min-vh-75 py-5">
+                <div class="col-lg-7 text-center text-lg-start mb-5 mb-lg-0">
+                    <div class="badge bg-cyber-glass mb-3 py-2 px-3 border-cyan font-orbitron">
+                        <span class="pulse-dot me-2"></span> SYSTEM STATUS: <span id="system-status-text" class="text-cyan">CONNECTING...</span>
+                    </div>
+                    <h1 class="hero-title font-orbitron font-weight-bold mb-3">
+                        SIGN SPEAK <span class="text-glow-cyan">AI</span>
+                    </h1>
+                    <h2 class="hero-subtitle mb-4">
+                        AI Powered Sign Language Recognition System
+                    </h2>
+                    <p class="hero-desc text-muted mb-5">
+                        Bridging communication gaps in real-time. Our system leverages advanced MediaPipe hand landmark tracking and deep TensorFlow/Keras neural network classifiers to convert hand gestures into instant speech and text.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
+                        <a href="#recognition" class="btn btn-cyber-primary btn-lg" onclick="navigateToSection('recognition-section')">
+                            <i class="bi bi-play-circle-fill me-2"></i> Launch Recognition
+                        </a>
+                        <a href="#gestures" class="btn btn-cyber-secondary btn-lg" onclick="navigateToSection('gestures-section')">
+                            <i class="bi bi-gear-fill me-2"></i> Custom Dictionary
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center position-relative">
+                    <!-- Tech Stack Logo Display -->
+                    <div class="tech-stack-display">
+                        <div class="tech-node main-node">
+                            <i class="bi bi-cpu"></i>
+                            <span class="node-label">Core AI</span>
+                        </div>
+                        <div class="tech-node sub-node" style="--angle: 0deg; --dist: 120px;">
+                            <i class="bi bi-camera"></i>
+                            <span class="node-label">OpenCV</span>
+                        </div>
+                        <div class="tech-node sub-node" style="--angle: 72deg; --dist: 120px;">
+                            <i class="bi bi-hand-index-thumb"></i>
+                            <span class="node-label">MediaPipe</span>
+                        </div>
+                        <div class="tech-node sub-node" style="--angle: 144deg; --dist: 120px;">
+                            <i class="bi bi-activity"></i>
+                            <span class="node-label">Keras</span>
+                        </div>
+                        <div class="tech-node sub-node" style="--angle: 216deg; --dist: 120px;">
+                            <i class="bi bi-database"></i>
+                            <span class="node-label">SQLite</span>
+                        </div>
+                        <div class="tech-node sub-node" style="--angle: 288deg; --dist: 120px;">
+                            <i class="bi bi-megaphone"></i>
+                            <span class="node-label">Web TTS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Cards Section -->
+            <div class="row g-4 mt-5">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card card-glass card-hover h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-cyan-glow mb-4">
+                                <i class="bi bi-camera-video"></i>
+                            </div>
+                            <h4 class="card-title font-orbitron mb-3">Real Time Gesture Detection</h4>
+                            <p class="card-text text-muted font-size-sm">Captures hand skeletal poses instantly via webcam with low latency processing.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card card-glass card-hover h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-purple-glow mb-4">
+                                <i class="bi bi-brain"></i>
+                            </div>
+                            <h4 class="card-title font-orbitron mb-3">AI Recognition</h4>
+                            <p class="card-text text-muted font-size-sm">Multi-layer TensorFlow/Keras neural network maps 21 landmark joints to classes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card card-glass card-hover h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-pink-glow mb-4">
+                                <i class="bi bi-translate"></i>
+                            </div>
+                            <h4 class="card-title font-orbitron mb-3">Text Conversion</h4>
+                            <p class="card-text text-muted font-size-sm">Converts poses into letters and full words, compiling transcripts dynamically.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card card-glass card-hover h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-blue-glow mb-4">
+                                <i class="bi bi-volume-up"></i>
+                            </div>
+                            <h4 class="card-title font-orbitron mb-3">Voice Output</h4>
+                            <p class="card-text text-muted font-size-sm">Synthesizes speech on both client side (Web Speech) and server side (pyttsx3).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= RECOGNITION SECTION ================= -->
+        <section id="recognition-section" class="spa-section">
+            <div class="row g-4 align-items-stretch">
+                <!-- Webcam viewport column -->
+                <div class="col-xl-7">
+                    <div class="card card-glass h-100">
+                        <div class="card-header border-bottom border-secondary d-flex justify-content-between align-items-center">
+                            <h3 class="card-title font-orbitron mb-0 text-cyan"><i class="bi bi-camera-reels me-2"></i> Camera Interface</h3>
+                            <span class="badge bg-danger pulse-dot-active d-none" id="rec-indicator">REC ACTIVE</span>
+                        </div>
+                        <div class="card-body p-3 d-flex flex-column align-items-center justify-content-center">
+                            <div class="webcam-viewport-wrapper">
+                                <!-- Scanlines and framing effect -->
+                                <div class="camera-lens-frame"></div>
+                                <div class="camera-scanline"></div>
+                                
+                                <!-- Hidden Canvas for capture, Webcam video, and display Overlay Canvas -->
+                                <video id="webcam-elem" autoplay playsinline muted></video>
+                                <canvas id="overlay-canvas"></canvas>
+                                <canvas id="hidden-capture-canvas" style="display: none;"></canvas>
+                                
+                                <div class="fallback-camera-placeholder text-center" id="cam-placeholder">
+                                    <i class="bi bi-camera-video-off fs-1 text-muted mb-3 d-block"></i>
+                                    <p class="text-muted mb-0">Camera Offline</p>
+                                    <button class="btn btn-cyber-primary btn-sm mt-3" id="quick-start-cam-btn">
+                                        <i class="bi bi-power"></i> Initialize Device
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Control Panel Buttons -->
+                            <div class="d-flex flex-wrap gap-2 justify-content-center mt-3 w-100">
+                                <button class="btn btn-cyber-success flex-grow-1" id="start-stream-btn">
+                                    <i class="bi bi-play-fill"></i> Start Capture
+                                </button>
+                                <button class="btn btn-cyber-danger flex-grow-1" id="stop-stream-btn" disabled>
+                                    <i class="bi bi-stop-fill"></i> Stop Capture
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recognition metrics and sentence builder -->
+                <div class="col-xl-5">
+                    <div class="card card-glass h-100 d-flex flex-column">
+                        <div class="card-header border-bottom border-secondary">
+                            <h3 class="card-title font-orbitron mb-0 text-purple"><i class="bi bi-cpu-fill me-2"></i> Classifier Metrics</h3>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column justify-content-between flex-grow-1">
+                            
+                                <!-- Main prediction readout -->
+                                <div class="text-center py-4 bg-dark-glass rounded border-purple mb-4">
+                                    <span class="text-muted d-block font-orbitron font-size-sm uppercase tracking-wider mb-2">Recognized Gesture</span>
+                                    <div class="d-flex justify-content-center align-items-center gap-3 my-2">
+                                        <div class="prediction-large text-glow-purple font-orbitron my-0" id="predicted-gesture-label">--</div>
+                                        <button class="btn btn-play-audio" id="speak-current-gesture-btn" style="width: 44px; height: 44px; font-size: 1.2rem;" disabled title="Speak Detected Gesture">
+                                            <i class="bi bi-volume-up-fill"></i>
+                                        </button>
+                                    </div>
+                                
+                                <!-- Confidence Bar -->
+                                <div class="px-4 mt-3">
+                                    <div class="d-flex justify-content-between text-muted font-size-xs mb-1">
+                                        <span>Inference Confidence</span>
+                                        <span id="confidence-percentage">0%</span>
+                                    </div>
+                                    <div class="progress progress-dark" style="height: 6px;">
+                                        <div class="progress-bar bg-gradient-purple" role="progressbar" style="width: 0%" id="confidence-progress-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TTS Settings Panel -->
+                            <div class="mb-4">
+                                <h5 class="font-orbitron text-cyan mb-3 fs-6"><i class="bi bi-chat-left-dots-fill me-2"></i> Speech & Voice Controls</h5>
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <div class="form-check form-switch card-check-glass">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="speech-toggle" checked>
+                                            <label class="form-check-label text-muted font-size-sm" for="speech-toggle">Web Speech API</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-check form-switch card-check-glass">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="server-speech-toggle">
+                                            <label class="form-check-label text-muted font-size-sm" for="server-speech-toggle">pyttsx3 Server</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3" id="voice-select-container">
+                                    <label for="voice-select" class="form-label text-muted font-size-xs uppercase font-orbitron mb-2"><i class="bi bi-person-fill-gear text-cyan me-1"></i> Web Speech Voice Selection</label>
+                                    <select class="form-select form-control-dark" id="voice-select">
+                                        <option value="">Default System Voice</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Sentence construction and buffer -->
+                            <div class="flex-grow-1 d-flex flex-column justify-content-end">
+                                <div class="mb-3">
+                                    <label class="form-label text-muted font-orbitron font-size-sm"><i class="bi bi-text-left me-2"></i> Compiled Translation</label>
+                                    <div class="sentence-buffer-box p-3" id="sentence-buffer-display">
+                                        Ready to transcribe... Perform gestures to begin.
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-light flex-grow-1" id="speak-sentence-btn" disabled>
+                                        <i class="bi bi-volume-up-fill me-1"></i> Speak Phrase
+                                    </button>
+                                    <button class="btn btn-outline-danger flex-grow-1" id="clear-sentence-btn">
+                                        <i class="bi bi-trash3-fill me-1"></i> Clear Buffer
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= GESTURES SECTION ================= -->
+        <section id="gestures-section" class="spa-section">
+            <div class="row g-4">
+                <!-- Left panel - Form to add new gesture -->
+                <div class="col-md-5 col-lg-4">
+                    <div class="card card-glass">
+                        <div class="card-header border-bottom border-secondary">
+                            <h3 class="card-title font-orbitron mb-0 text-cyan"><i class="bi bi-plus-square-fill me-2"></i> New Gesture</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <p class="text-muted font-size-sm mb-4">
+                                Add a new gesture to the Sign Speak AI database. The backend neural classifier will automatically retrain and compile on submit.
+                            </p>
+                            <form id="add-gesture-form">
+                                <div class="mb-3">
+                                    <label for="gesture-input-name" class="form-label font-orbitron text-white">Gesture Name</label>
+                                    <input type="text" class="form-control form-control-dark" id="gesture-input-name" placeholder="e.g. Help" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="gesture-input-desc" class="form-label font-orbitron text-white">Pose Description</label>
+                                    <textarea class="form-control form-control-dark" id="gesture-input-desc" rows="4" placeholder="Describe the hand pose structure for calibration..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-cyber-primary w-100" id="add-gesture-submit-btn">
+                                    <i class="bi bi-arrow-repeat spin-icon d-none" id="add-btn-spinner"></i>
+                                    <span id="add-btn-text"><i class="bi bi-check-lg me-1"></i> Calibrate Gesture</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right panel - Active dictionary gallery -->
+                <div class="col-md-7 col-lg-8">
+                    <div class="card card-glass">
+                        <div class="card-header border-bottom border-secondary d-flex justify-content-between align-items-center">
+                            <h3 class="card-title font-orbitron mb-0 text-purple"><i class="bi bi-journals me-2"></i> Gesture Dictionary</h3>
+                            <span class="badge bg-cyber-glass border-purple font-orbitron" id="gestures-count-badge">0 Gestures</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <!-- Gestures Gallery Grid -->
+                            <div class="row g-3" id="gestures-gallery-container">
+                                <!-- Dynamic items loaded via JavaScript -->
+                                <div class="col-12 text-center py-5 text-muted">
+                                    <div class="spinner-border text-purple mb-3" role="status"></div>
+                                    <p>Loading sign library...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= HISTORY SECTION ================= -->
+        <section id="history-section" class="spa-section">
+            <div class="card card-glass">
+                <div class="card-header border-bottom border-secondary d-flex justify-content-between align-items-center">
+                    <h3 class="card-title font-orbitron mb-0 text-cyan"><i class="bi bi-clock-history me-2"></i> Translation History Logs</h3>
+                    <button class="btn btn-outline-danger btn-sm font-orbitron" id="clear-history-btn">
+                        <i class="bi bi-trash-fill me-1"></i> Wipe History
+                    </button>
+                </div>
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table table-cyber text-white align-middle">
+                            <thead>
+                                <tr class="font-orbitron">
+                                    <th scope="col" style="width: 80px;">Log ID</th>
+                                    <th scope="col">Detected Gesture</th>
+                                    <th scope="col">Model Confidence</th>
+                                    <th scope="col">Time Logged</th>
+                                    <th scope="col">Audio Speech Status</th>
+                                    <th scope="col" class="text-center" style="width: 120px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <tr>
+                                    <td colspan="6" class="text-center py-5 text-muted">
+                                        <div class="spinner-border text-cyan mb-3" role="status"></div>
+                                        <p>Fetching historical translations...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ABOUT SECTION ================= -->
+        <section id="about-section" class="spa-section">
+            <!-- Project summary and specs -->
+            <div class="card card-glass mb-4">
+                <div class="card-body p-5">
+                    <h2 class="font-orbitron mb-3 text-glow-cyan"><i class="bi bi-info-circle-fill me-2"></i> Technology Framework Architecture</h2>
+                    <p class="text-muted mb-4 lead">
+                        Sign Speak AI is an end-to-end full-stack computer vision application powered by local machine learning processing pipelines.
+                    </p>
+                    <hr class="border-secondary my-4">
+                    <div class="row g-4 mt-2">
+                        <div class="col-md-6 col-lg-3">
+                            <h5 class="font-orbitron text-white mb-2"><i class="bi bi-server text-cyan me-1"></i> Python Flask Backend</h5>
+                            <p class="text-muted font-size-sm">Flask acts as the core REST server coordinating DB interactions, processing raw images, running MediaPipe solutions, and feeding landmark arrays to TensorFlow classifiers.</p>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <h5 class="font-orbitron text-white mb-2"><i class="bi bi-hand-index text-purple me-1"></i> MediaPipe Tracking</h5>
+                            <p class="text-muted font-size-sm">Extracts hand models from the input video frames in real-time, mapping 21 landmark nodes containing coordinates in 3-dimensional Cartesian coordinates.</p>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <h5 class="font-orbitron text-white mb-2"><i class="bi bi-cpu text-pink me-1"></i> TensorFlow Keras</h5>
+                            <p class="text-muted font-size-sm">A multi-layer feed-forward deep neural network (DNN) trained on normalized structural landmarks, predicting probabilities across gestures via Softmax.</p>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <h5 class="font-orbitron text-white mb-2"><i class="bi bi-database-fill-gear text-blue me-1"></i> SQLite Database</h5>
+                            <p class="text-muted font-size-sm">Provides persistent local storage for custom vocabulary lists (gesture names and joint structures) and detailed log metrics of translation history.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hand landmark reference chart -->
+            <div class="card card-glass">
+                <div class="card-header border-bottom border-secondary">
+                    <h3 class="card-title font-orbitron mb-0 text-purple"><i class="bi bi-diagram-3-fill me-2"></i> MediaPipe Hand Landmarks Mapping</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 text-center mb-4 mb-lg-0">
+                            <!-- Vector SVG representation of MediaPipe Landmark Hand -->
+                            <svg class="hand-mesh-svg" viewBox="-20 -20 240 240" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Hand skeleton bone lines -->
+                                <line x1="100" y1="200" x2="160" y2="180" class="skeleton-line" />
+                                <line x1="160" y1="180" x2="185" y2="150" class="skeleton-line" />
+                                <line x1="185" y1="150" x2="195" y2="120" class="skeleton-line" />
+                                <line x1="195" y1="120" x2="200" y2="95" class="skeleton-line" />
+                                
+                                <line x1="100" y1="200" x2="135" y2="120" class="skeleton-line" />
+                                <line x1="135" y1="120" x2="140" y2="75" class="skeleton-line" />
+                                <line x1="140" y1="75" x2="142" y2="45" class="skeleton-line" />
+                                <line x1="142" y1="45" x2="142" y2="20" class="skeleton-line" />
+                                
+                                <line x1="100" y1="200" x2="105" y2="115" class="skeleton-line" />
+                                <line x1="105" y1="115" x2="107" y2="65" class="skeleton-line" />
+                                <line x1="107" y1="65" x2="108" y2="35" class="skeleton-line" />
+                                <line x1="108" y1="35" x2="108" y2="10" class="skeleton-line" />
+                                
+                                <line x1="100" y1="200" x2="75" y2="120" class="skeleton-line" />
+                                <line x1="75" y1="120" x2="72" y2="70" class="skeleton-line" />
+                                <line x1="72" y1="70" x2="70" y2="42" class="skeleton-line" />
+                                <line x1="70" y1="42" x2="68" y2="20" class="skeleton-line" />
+                                
+                                <line x1="100" y1="200" x2="45" y2="135" class="skeleton-line" />
+                                <line x1="45" y1="135" x2="38" y2="95" class="skeleton-line" />
+                                <line x1="38" y1="95" x2="32" y2="75" class="skeleton-line" />
+                                <line x1="32" y1="75" x2="26" y2="55" class="skeleton-line" />
+
+                                <!-- Joints / Nodes -->
+                                <circle cx="100" cy="200" r="6" class="joint-node wrist" />
+                                
+                                <circle cx="160" cy="180" r="5" class="joint-node thumb" />
+                                <circle cx="185" cy="150" r="5" class="joint-node thumb" />
+                                <circle cx="195" cy="120" r="5" class="joint-node thumb" />
+                                <circle cx="200" cy="95" r="5" class="joint-node thumb" />
+                                
+                                <circle cx="135" cy="120" r="5" class="joint-node index-finger" />
+                                <circle cx="140" cy="75" r="5" class="joint-node index-finger" />
+                                <circle cx="142" cy="45" r="5" class="joint-node index-finger" />
+                                <circle cx="142" cy="20" r="5" class="joint-node index-finger" />
+                                
+                                <circle cx="105" cy="115" r="5" class="joint-node middle-finger" />
+                                <circle cx="107" cy="65" r="5" class="joint-node middle-finger" />
+                                <circle cx="108" cy="35" r="5" class="joint-node middle-finger" />
+                                <circle cx="108" cy="10" r="5" class="joint-node middle-finger" />
+                                
+                                <circle cx="75" cy="120" r="5" class="joint-node ring-finger" />
+                                <circle cx="72" cy="70" r="5" class="joint-node ring-finger" />
+                                <circle cx="70" cy="42" r="5" class="joint-node ring-finger" />
+                                <circle cx="68" cy="20" r="5" class="joint-node ring-finger" />
+                                
+                                <circle cx="45" cy="135" r="5" class="joint-node pinky" />
+                                <circle cx="38" cy="95" r="5" class="joint-node pinky" />
+                                <circle cx="32" cy="75" r="5" class="joint-node pinky" />
+                                <circle cx="26" cy="55" r="5" class="joint-node pinky" />
+
+                                <!-- Node Labels (for visual reference) -->
+                                <text x="100" y="215" class="node-label-text">0</text>
+                                <text x="195" y="85" class="node-label-text">4</text>
+                                <text x="142" y="10" class="node-label-text">8</text>
+                                <text x="108" y="0" class="node-label-text">12</text>
+                                <text x="68" y="10" class="node-label-text">16</text>
+                                <text x="26" y="45" class="node-label-text">20</text>
+                            </svg>
+                        </div>
+                        <div class="col-lg-7">
+                            <h4 class="font-orbitron text-white mb-3">Landmark Reference Key</h4>
+                            <p class="text-muted font-size-sm">
+                                Every detected frame produces 21 coordinates (indexed 0 to 20). The spatial relationships, relative lengths, and angles are parsed into a normalized 1D vector:
+                            </p>
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <ul class="list-group list-group-flush list-group-cyber font-size-sm">
+                                        <li class="list-group-item bg-transparent text-white border-0 py-1 px-0"><strong class="text-cyan">0:</strong> Wrist</li>
+                                        <li class="list-group-item bg-transparent text-white border-0 py-1 px-0"><strong class="text-cyan">1 - 4:</strong> Thumb (CMC, MCP, IP, Tip)</li>
+                                        <li class="list-group-item bg-transparent text-white border-0 py-1 px-0"><strong class="text-cyan">5 - 8:</strong> Index Finger (MCP, PIP, DIP, Tip)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-group list-group-flush list-group-cyber font-size-sm">
+                                        <li class="list-group-item bg-transparent text-white border-0 py-1 px-0"><strong class="text-cyan">9 - 12:</strong> Middle Finger (MCP, PIP, DIP, Tip)</li>
+                                        <li class="list-group-item bg-transparent text-white border-0 py-1 px-0"><strong class="text-cyan">13 - 16:</strong> Ring Finger (MCP, PIP, DIP, Tip)</li>
+                                        <li class="list-group-item bg-transparent text-white border-0 py-1 px-0"><strong class="text-cyan">17 - 20:</strong> Pinky (MCP, PIP, DIP, Tip)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-3 bg-dark-glass rounded border-cyan">
+                                <small class="text-cyan d-block font-orbitron mb-1"><i class="bi bi-lightbulb-fill"></i> Calibration Note:</small>
+                                <small class="text-muted">The system is calibrated based on hands facing the camera at an angle where all knuckles are clearly visible. Extremely slanted hands or overlapping fingers may skew the prediction confidence scores.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-dark-glass text-center border-top border-secondary">
+        <div class="container">
+            <span class="text-muted font-size-sm">Sign Speak AI &copy; 2026. Made with <i class="bi bi-heart-fill text-danger"></i>. Built using OpenCV, MediaPipe, TensorFlow & Flask.</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

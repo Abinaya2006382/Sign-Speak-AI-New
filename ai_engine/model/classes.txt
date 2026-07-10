@@ -1,0 +1,12 @@
+Bye
+Good Morning
+Hello
+Help
+I Love You
+No
+Sorry
+Thank You
+Thumbs Down
+Thumbs Up
+Welcome
+Yes

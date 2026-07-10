@@ -1,0 +1,13 @@
+CREATE TABLE gestures (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    gesture_name TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    gesture TEXT,
+    confidence REAL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
