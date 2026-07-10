@@ -4,7 +4,7 @@
     "builder": "DOCKERFILE"
   },
   "deploy": {
-    "startCommand": "gunicorn \"backend.app:create_app()\" --timeout 120 --workers 1",
+    "startCommand": "gunicorn \"backend.app:create_app()\" --timeout 180 --workers 1",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
